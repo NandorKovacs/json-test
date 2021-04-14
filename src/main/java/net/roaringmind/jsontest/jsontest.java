@@ -36,8 +36,14 @@ public class jsontest {
       e.printStackTrace();
     }
 
+    //eddig minden jól néz ki, szupin ki printel json ba
+
     String[] readChildren = gson.fromJson("children.json", String[].class);
 
     System.out.println(readChildren);
+
+    //valami nem jó, azt modja stringet talált BEGIN_ARRAY helyett
+
+    //wtf, mér? azt olvassa amit ö maga irt
   }
 }
