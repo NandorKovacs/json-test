@@ -1,7 +1,10 @@
 package net.roaringmind.jsontest;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,26 +27,23 @@ public class jsontest {
 
     Child robert = new Child(14, "robert");
 
-    List<String> children = Arrays.asList(new String[] { max.name, marie.name, robert.name, hans.name });
+    List<Child> children = Arrays.asList(new Child[] { max, marie, robert, hans });
 
     try {
       FileWriter fileWriter = new FileWriter("children.json");
-
       gson.toJson(children, fileWriter);
 
       fileWriter.close();
-    } catch (JsonIOException | IOException e) {
+
+      Reader reader = new FileReader("children.json");
+      Child[] readChildren = gson.fromJson(reader, Child[].class);
+
+      for (Child s : readChildren) {
+        System.out.println(s + "\n");
+      }
+
+    } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
-
-    //eddig minden jól néz ki, szupin ki printel json ba
-
-    String[] readChildren = gson.fromJson("children.json", String[].class);
-
-    System.out.println(readChildren);
-
-    //valami nem jó, azt modja stringet talált BEGIN_ARRAY helyett
-
-    //wtf, mér? azt olvassa amit ö maga irt
   }
 }
